@@ -48,35 +48,5 @@ namespace EFT.Repository.Extensions
 
             return stateManager.Context;
         }
-
-        public static ModelBuilder SetupTemporalEntities<TEntity>(this ModelBuilder modelBuilder)
-            where TEntity : TemporalEntity
-        {
-            modelBuilder
-                .Entity<TEntity>()
-                .Property(e => e.SysEndTime)
-                .ValueGeneratedOnAddOrUpdate()
-                .Metadata.BeforeSaveBehavior = Microsoft.EntityFrameworkCore.Metadata.PropertySaveBehavior.Ignore;
-
-            modelBuilder
-                .Entity<TEntity>()
-                .Property(e => e.SysStartTime)
-                .ValueGeneratedOnAddOrUpdate()
-                .Metadata.AfterSaveBehavior = Microsoft.EntityFrameworkCore.Metadata.PropertySaveBehavior.Ignore;
-
-            modelBuilder
-                .Entity<TEntity>()
-                .Property(e => e.SysEndTime)
-                .ValueGeneratedOnAddOrUpdate()
-                .Metadata.AfterSaveBehavior = Microsoft.EntityFrameworkCore.Metadata.PropertySaveBehavior.Ignore;
-
-            modelBuilder
-                .Entity<TEntity>()
-                .Property(e => e.SysStartTime)
-                .ValueGeneratedOnAddOrUpdate()
-                .Metadata.BeforeSaveBehavior = Microsoft.EntityFrameworkCore.Metadata.PropertySaveBehavior.Ignore;
-
-            return modelBuilder;
-        }
     }
 }
