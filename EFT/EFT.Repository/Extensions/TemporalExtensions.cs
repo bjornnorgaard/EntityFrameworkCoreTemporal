@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Reflection;
+using EFT.Domain;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking.Internal;
 using Microsoft.EntityFrameworkCore.Internal;
@@ -46,6 +47,36 @@ namespace EFT.Repository.Extensions
             stateManager = stateManager ?? (((LazyRef<IStateManager>)stateManagerProperty)?.Value ?? ((dynamic)stateManagerProperty).Value);
 
             return stateManager.Context;
+        }
+
+        public static ModelBuilder SetupTemporalEntities<TEntity>(this ModelBuilder modelBuilder)
+            where TEntity : TemporalEntity
+        {
+            modelBuilder
+                .Entity<TEntity>()
+                .Property(e => e.SysEndTime)
+                .ValueGeneratedOnAddOrUpdate()
+                .Metadata.BeforeSaveBehavior = Microsoft.EntityFrameworkCore.Metadata.PropertySaveBehavior.Ignore;
+
+            modelBuilder
+                .Entity<TEntity>()
+                .Property(e => e.SysStartTime)
+                .ValueGeneratedOnAddOrUpdate()
+                .Metadata.AfterSaveBehavior = Microsoft.EntityFrameworkCore.Metadata.PropertySaveBehavior.Ignore;
+
+            modelBuilder
+                .Entity<TEntity>()
+                .Property(e => e.SysEndTime)
+                .ValueGeneratedOnAddOrUpdate()
+                .Metadata.AfterSaveBehavior = Microsoft.EntityFrameworkCore.Metadata.PropertySaveBehavior.Ignore;
+
+            modelBuilder
+                .Entity<TEntity>()
+                .Property(e => e.SysStartTime)
+                .ValueGeneratedOnAddOrUpdate()
+                .Metadata.BeforeSaveBehavior = Microsoft.EntityFrameworkCore.Metadata.PropertySaveBehavior.Ignore;
+
+            return modelBuilder;
         }
     }
 }

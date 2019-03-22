@@ -1,4 +1,5 @@
 ﻿using EFT.Domain;
+using EFT.Repository.Extensions;
 using Microsoft.EntityFrameworkCore;
 
 namespace EFT.Repository
@@ -10,6 +11,11 @@ namespace EFT.Repository
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=EFT_Local;Trusted_Connection=True;");
+        }
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            builder.SetupTemporalEntities<Student>();
         }
     }
 }
