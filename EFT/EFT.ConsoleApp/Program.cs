@@ -24,7 +24,7 @@ namespace EFT.ConsoleApp
 
             if (!db.Students.Any())
             {
-                db.Students.AddRange();
+                db.Students.AddRange(students);
                 db.SaveChanges();
             }
 
