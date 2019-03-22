@@ -5,4 +5,8 @@
     <TargetFramework>netcoreapp2.2</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\EFT.Repository\EFT.Repository.csproj" />
+  </ItemGroup>
+
 </Project>
