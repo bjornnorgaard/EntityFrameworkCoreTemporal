@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using EFT.Domain;
 using EFT.Repository;
 using EFT.Repository.Extensions;
 using Microsoft.EntityFrameworkCore;
@@ -15,7 +13,10 @@ namespace EFT.ConsoleApp
             var db = new EftContext();
             db.Database.Migrate();
 
-            var oij = db.Students.AsNoTracking().Between(DateTime.MinValue, DateTime.Now).ToList();
+            var allRevisions = db.Students.AsNoTracking()
+                .Between(DateTime.MinValue, DateTime.Now)
+                .Where(s => s.Id == 1)
+                .ToList();
         }
     }
 }
