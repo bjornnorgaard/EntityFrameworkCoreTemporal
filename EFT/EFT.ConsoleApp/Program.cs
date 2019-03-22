@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading;
 using EFT.Domain;
 using EFT.Repository;
 using EFT.Repository.Extensions;
@@ -31,9 +30,10 @@ namespace EFT.ConsoleApp
             db.SaveChanges();
             Console.WriteLine("Done");
 
-            Console.Write("Changing first student... ");
             var student = db.Students.FirstOrDefault();
-            student.Name = "Mister Sir";
+            var newName = "Mister Sir";
+            Console.Write($"Renaming '{student.Name}' to '{newName}'... ");
+            student.Name = newName;
             db.SaveChanges();
             Console.WriteLine("Done");
 
