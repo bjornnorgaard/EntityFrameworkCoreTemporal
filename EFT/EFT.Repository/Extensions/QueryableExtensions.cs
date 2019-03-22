@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq;
 using System.Reflection;
-using EFT.Domain;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking.Internal;
 using Microsoft.EntityFrameworkCore.Internal;
@@ -10,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Query.Internal;
 
 namespace EFT.Repository.Extensions
 {
-    public static class TemporalExtensions
+    public static class QueryableExtensions
     {
         public static IQueryable<TEntity> Between<TEntity>(this IQueryable<TEntity> source, long from, long to) where TEntity : class
         {
