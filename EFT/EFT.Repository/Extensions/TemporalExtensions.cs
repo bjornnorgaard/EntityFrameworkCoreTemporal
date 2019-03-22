@@ -18,18 +18,19 @@ namespace EFT.Repository.Extensions
 
             var mapping = source.GetDbContext().Model.FindEntityType(typeof(TEntity)).Relational();
 
-            var query = "SELECT * FROM [{0}].[{1}] FOR SYSTEM_TIME BETWEEN '{2}' AND '{3}' ";
+            var query = $"SELECT * FROM [dbo].[{mapping.TableName}] FOR SYSTEM_TIME BETWEEN '{fromDate}' AND '{toDate}' ";
 
-            return source.FromSql(query, mapping.Schema, mapping.TableName, fromDate, toDate);
+            return source.FromSql(query, mapping.TableName);
         }
 
         public static IQueryable<TEntity> Between<TEntity>(this IQueryable<TEntity> source, DateTime from, DateTime to) where TEntity : class
         {
             var mapping = source.GetDbContext().Model.FindEntityType(typeof(TEntity)).Relational();
 
-            var query = "SELECT * FROM [{0}].[{1}] FOR SYSTEM_TIME BETWEEN '{2}' AND '{3}' ";
+            var query = $"SELECT * FROM [dbo].[{mapping.TableName}] " +
+                        $"FOR SYSTEM_TIME BETWEEN '{from.ToString("yyyy/MM/dd HH:mm")}' AND '{to.ToString("yyyy/MM/dd HH:mm")}' ";
 
-            return source.FromSql(query, mapping.Schema, mapping.TableName, from.ToString("yyyy/MM/dd HH:mm"), to.ToString("yyyy/MM/dd HH:mm"));
+            return source.FromSql(query);
         }
 
         private static DbContext GetDbContext(this IQueryable query)

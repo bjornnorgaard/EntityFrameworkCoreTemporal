@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using EFT.Domain;
 using EFT.Repository;
+using EFT.Repository.Extensions;
 using Microsoft.EntityFrameworkCore;
 
 namespace EFT.ConsoleApp
@@ -13,9 +15,7 @@ namespace EFT.ConsoleApp
             var db = new EftContext();
             db.Database.Migrate();
 
-            var student = db.Students.FirstOrDefault();
-            student.Name = "John Hoff";
-            db.SaveChanges();
+            var oij = db.Students.AsNoTracking().Between(DateTimeOffset.UtcNow.AddDays(-1).ToUnixTimeMilliseconds(), DateTimeOffset.UtcNow.ToUnixTimeMilliseconds()).Where(d => d.Id == 1).ToList();
         }
     }
 }
