@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata;
+﻿using EFT.Repository.Extensions;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace EFT.Repository.Migrations
@@ -19,6 +20,9 @@ namespace EFT.Repository.Migrations
                 {
                     table.PrimaryKey("PK_Students", x => x.Id);
                 });
+
+            migrationBuilder.Sql("CREATE SCHEMA History");
+            migrationBuilder.AddTemporalTableSupport("Students", "History");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
