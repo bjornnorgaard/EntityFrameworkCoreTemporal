@@ -15,7 +15,7 @@ namespace EFT.ConsoleApp
             var db = new EftContext();
             db.Database.Migrate();
 
-            var oij = db.Students.AsNoTracking().Between(DateTimeOffset.UtcNow.AddDays(-1).ToUnixTimeMilliseconds(), DateTimeOffset.UtcNow.ToUnixTimeMilliseconds()).Where(d => d.Id == 1).ToList();
+            var oij = db.Students.AsNoTracking().Between(DateTime.MinValue, DateTime.Now).ToList();
         }
     }
 }
